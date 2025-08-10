@@ -258,6 +258,7 @@ body {
   margin: 0;
   font-weight: 400;
   min-height: 20rem; /* para evitar salto de layout */
+  text-align: center;
 }
 
 #happyText {
