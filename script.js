@@ -48,4 +48,67 @@ flower.addEventListener("click", () => {
     [...petals.children].forEach((petal) => {
       const baseAngle = Math.random() * Math.PI * 2;
       const spread = Math.PI / 4; // espalhamento +- 45 graus do ângulo base
-      const angle = baseAngle + (Math.random() - 
+      const angle = baseAngle + (Math.random() - 0.5) * spread;
+
+      // Distância a voar
+      const distance = 300 + Math.random() * 150;
+
+      // Calcula os deslocamentos em X e Y
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+
+      petal.style.transform = `translate(${x}px, ${y}px) rotate(${(Math.random() - 0.5) * 360}deg)`;
+      petal.style.opacity = "0";
+    });
+
+    // Após a dispersão, esconde a flor e mostra o poema
+    setTimeout(() => {
+      flower.style.opacity = "0";
+      showPoem();
+    }, 4000);
+  }, 1600);
+});
+
+// Função pra digitar texto letra a letra com ritmo humano fluido
+function typeText(text, element, delayMin = 15, delayMax = 60, callback) {
+  let i = 0;
+
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+
+      // Pausas aleatórias pra parecer humano
+      let delay = delayMin + Math.random() * (delayMax - delayMin);
+      if (text.charAt(i - 1) === ',' || text.charAt(i - 1) === '.') {
+        delay += 120;
+      }
+      if (text.charAt(i - 1) === '—') {
+        delay += 200;
+      }
+
+      setTimeout(type, delay);
+    } else if (callback) {
+      callback();
+    }
+  }
+
+  type();
+}
+
+function showPoem() {
+  poemScreen.classList.add("visible");
+  poemTitle.textContent = "";
+  poemText.textContent = "";
+  happyText.classList.remove("show");
+
+  // Digitar título primeiro
+  typeText(title, poemTitle, 40, 70, () => {
+    poemTitle.textContent += "\n"; // pulinho pra separar visualmente
+
+    // Depois digitar o corpo do poema
+    typeText(poemBody, poemText, 10, 40, () => {
+      happyText.classList.add("show");
+    });
+  });
+}
