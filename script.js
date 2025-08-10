@@ -4,10 +4,13 @@ const petals = flower.querySelector(".petals");
 const leaves = flower.querySelector(".leaves");
 const thorns = flower.querySelector(".thorns");
 const poemScreen = document.getElementById("poemScreen");
+const poemTitle = document.getElementById("poemTitle");
 const poemText = document.getElementById("poemText");
 const happyText = document.getElementById("happyText");
 
-const poem = `Imperio en tus ojos
+const title = "Imperio en tus ojos";
+
+const poemBody = `
 
 En tus ojos veo mundos que no existen para nadie más,
           constelaciones atrapadas en abismos que me devoran sin piedad.
@@ -45,43 +48,4 @@ flower.addEventListener("click", () => {
     [...petals.children].forEach((petal) => {
       const baseAngle = Math.random() * Math.PI * 2;
       const spread = Math.PI / 4; // espalhamento +- 45 graus do ângulo base
-      const angle = baseAngle + (Math.random() - 0.5) * spread;
-      const dist = 500 + Math.random() * 200;
-      const rotate = (Math.random() - 0.5) * 360;
-      petal.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${rotate}deg)`;
-      petal.style.opacity = '0';
-    });
-
-    // O jarro desaparece suavemente
-    flower.style.transition = "opacity 3s ease";
-    flower.style.opacity = '0';
-
-    // Mostra poema após 3s de voo
-    setTimeout(() => {
-      poemScreen.classList.add('visible');
-      typePoem(poem, poemText, () => {
-        happyText.classList.add('show'); // Aparece só depois do poema
-      });
-    }, 3000);
-  }, 1500);
-});
-
-// Digitação mais rápida com pausas humanas
-function typePoem(text, element, callback) {
-  let i = 0;
-  function type() {
-    if (i < text.length) {
-      element.textContent += text.charAt(i);
-      i++;
-      let baseDelay = 20; // mais rápido
-      let variance = 40; // menor variação para parecer natural
-      let delay = baseDelay + Math.random() * variance;
-      if (text.charAt(i - 1) === '\n') delay += 120; // pausa maior em nova linha
-      setTimeout(type, delay);
-    } else {
-      if (callback) callback();
-    }
-  }
-  element.textContent = '';
-  type();
-}
+      const angle = baseAngle + (Math.random() - 
