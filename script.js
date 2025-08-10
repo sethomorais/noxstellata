@@ -1,5 +1,8 @@
 const flower = document.getElementById("flowerContainer");
 const glass = document.getElementById("glass");
+const petals = flower.querySelector(".petals");
+const leaves = flower.querySelector(".leaves");
+const thorns = flower.querySelector(".thorns");
 const poemScreen = document.getElementById("poemScreen");
 const poemText = document.getElementById("poemText");
 const happyText = document.getElementById("happyText");
@@ -24,46 +27,22 @@ En tus ojos veo mundos que no existen para nadie más,
           Y por vos, la usaré.`;
 
 flower.addEventListener("click", () => {
-  // Remove o vidro
+  // Desaparece o vidro
   glass.style.opacity = "0";
-  
-  // Cresce a flor
-  setTimeout(() => {
-    flower.classList.add("grow");
-  }, 500);
 
-  // Some com a flor
-  setTimeout(() => {
-    flower.classList.add("fade-out");
-  }, 2500);
+  // Leve vibração para avisar que vai dispersar
+  flower.style.animation = "shake 0.5s ease-in-out 3";
 
-  // Mostra tela do poema
+  // Depois da vibração, dispersa as pétalas
   setTimeout(() => {
-    flower.style.display = "none";
-    poemScreen.classList.remove("hidden");
-    typePoem(poem, poemText, () => {
-      // Mostra mensagem final
-      happyText.classList.remove("hidden");
-      setTimeout(() => happyText.classList.add("show"), 200);
-    });
-  }, 4000);
-});
+    petals.classList.add("flying");
+    leaves.style.opacity = "0";
+    thorns.style.opacity = "0";
 
-// Função de digitação com pausas aleatórias
-function typePoem(text, element, callback) {
-  let i = 0;
-  function typeChar() {
-    if (i < text.length) {
-      element.textContent += text.charAt(i);
-      let delay = 25 + Math.random() * 40; // velocidade base
-      if (text.charAt(i) === "," || text.charAt(i) === "." || text.charAt(i) === "—") {
-        delay += 150 + Math.random() * 150; // pausa em pontuação
-      }
-      i++;
-      setTimeout(typeChar, delay);
-    } else {
-      if (callback) callback();
-    }
-  }
-  typeChar();
-}
+    // Aplica transformações aleatórias nas pétalas para voarem para bordas
+    [...petals.children].forEach((petal) => {
+      const angle = Math.random() * 2 * Math.PI; // direção aleatória
+      const dist = 600 + Math.random() * 200; // distância pra fora da tela
+      const rotate = (Math.random() - 0.5) * 720; // rotação aleatória até +/-360º duas vezes
+      petal.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${rotate}deg)`;
+      petal.style.opacity =
