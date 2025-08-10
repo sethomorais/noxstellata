@@ -27,48 +27,56 @@ En tus ojos veo mundos que no existen para nadie más,
           Y por vos, la usaré.`;
 
 flower.addEventListener("click", () => {
-  // Desaparece o vidro
+  // Desaparece o vidro suave
+  glass.style.transition = "opacity 1.5s ease";
   glass.style.opacity = "0";
 
-  // Leve vibração para avisar que vai dispersar
-  flower.style.animation = "shake 0.5s ease-in-out 3";
+  // Vibe leve de abertura (como "abrir o jarro")
+  flower.style.transition = "transform 1.5s ease";
+  flower.style.transform = "translate(-50%, -50%) scale(1.05)";
 
-  // Depois da vibração, dispersa as pétalas
+  // Após "abrir", dispersa as pétalas
   setTimeout(() => {
     petals.classList.add("flying");
     leaves.style.opacity = "0";
     thorns.style.opacity = "0";
 
-    // Aplica transformações aleatórias nas pétalas para voarem para bordas
+    // Pétalas voando estilo vento suave
     [...petals.children].forEach((petal) => {
-      const angle = Math.random() * 2 * Math.PI;
-      const dist = 600 + Math.random() * 200;
-      const rotate = (Math.random() - 0.5) * 720;
+      const baseAngle = Math.random() * Math.PI * 2;
+      const spread = Math.PI / 4; // espalhamento +- 45 graus do ângulo base
+      const angle = baseAngle + (Math.random() - 0.5) * spread;
+      const dist = 500 + Math.random() * 200;
+      const rotate = (Math.random() - 0.5) * 360;
       petal.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${rotate}deg)`;
       petal.style.opacity = '0';
     });
 
-    // Faz a flor sumir aos poucos para não ficar bugado visualmente
+    // O jarro desaparece suavemente
+    flower.style.transition = "opacity 3s ease";
     flower.style.opacity = '0';
 
-    // Depois que sumir, mostra o poema com a animação de digitação
+    // Mostra poema após 3s de voo
     setTimeout(() => {
       poemScreen.classList.add('visible');
       typePoem(poem, poemText, () => {
-        happyText.classList.add('show');
+        happyText.classList.add('show'); // Aparece só depois do poema
       });
     }, 3000);
   }, 1500);
 });
 
+// Digitação mais rápida com pausas humanas
 function typePoem(text, element, callback) {
   let i = 0;
   function type() {
     if (i < text.length) {
       element.textContent += text.charAt(i);
       i++;
-      let delay = 30 + Math.random() * 80; // variação de delay para parecer humano
-      if (text.charAt(i - 1) === '\n') delay += 150;
+      let baseDelay = 20; // mais rápido
+      let variance = 40; // menor variação para parecer natural
+      let delay = baseDelay + Math.random() * variance;
+      if (text.charAt(i - 1) === '\n') delay += 120; // pausa maior em nova linha
       setTimeout(type, delay);
     } else {
       if (callback) callback();
