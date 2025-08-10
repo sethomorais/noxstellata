@@ -4,7 +4,7 @@ body {
   overflow: hidden;
 }
 
-/* ===== Flor original ===== */
+/* ===== Flor container ===== */
 .container {
   position: absolute;
   left: 50%;
@@ -20,7 +20,58 @@ body {
   opacity: 0;
 }
 
-/* Seu CSS original da flor vem aqui (glass, petals, leaves, thorns, etc) */
+/* ===== Glass ===== */
+.glass {
+  position: absolute;
+  width: 200px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 100px / 200px;
+  overflow: hidden;
+  z-index: 10;
+  transition: opacity 1.5s ease;
+}
+.shine {
+  position: absolute;
+  width: 60px;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+}
+
+/* ===== Stem and Thorns ===== */
+.thorns div {
+  width: 2px;
+  height: 15px;
+  background: #2c3e1f;
+  margin: 10px auto;
+}
+
+/* ===== Leaves ===== */
+.leaves div {
+  width: 30px;
+  height: 15px;
+  background: #2c3e1f;
+  border-radius: 50%;
+  margin: 5px auto;
+}
+
+/* ===== Petals ===== */
+.petals div {
+  width: 60px;
+  height: 60px;
+  background: #b11226;
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* ===== Dead Petals ===== */
+.deadPetals div {
+  width: 50px;
+  height: 50px;
+  background: #70101a;
+  border-radius: 50%;
+}
 
 /* ===== Tela do poema ===== */
 #poemScreen {
