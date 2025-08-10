@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  background: #080f1a;
+  overflow: hidden;
+}
+
+/* ===== Flor original ===== */
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 2s ease, opacity 1.5s ease;
+}
+.container.grow {
+  transform: translate(-50%, -50%) scale(8);
+}
+.container.fade-out {
+  opacity: 0;
+}
+
+/* Seu CSS original da flor vem aqui (glass, petals, leaves, thorns, etc) */
+
+/* ===== Tela do poema ===== */
+#poemScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #0d0d0d, #1a0b0b);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  overflow-y: auto;
+}
+.hidden {
+  display: none;
+}
+
+#poemText {
+  white-space: pre-wrap;
+  max-width: 800px;
+  text-align: left;
+}
+
+#happyText {
+  margin-top: 40px;
+  font-size: 2rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+#happyText.show {
+  opacity: 1;
+}
