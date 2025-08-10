@@ -1,42 +1,34 @@
-/* Reset e base */
 body {
-  margin: 0;
-  background: #080f1a;
-  overflow: hidden;
   height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #0b1424, #1a263d);
+  overflow: hidden;
   font-family: 'Georgia', serif;
   color: white;
 }
 
-/* Container flor */
 .container {
   position: absolute;
   left: 50%;
   top: 50%;
+  width: 200px;
+  height: 350px;
+  transform-origin: center center;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  transition: opacity 1.5s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease;
   user-select: none;
-  width: 200px;
-  height: 350px;
 }
 
-/* Vidro */
 .glass {
-  position: absolute;
-  width: 200px;
+  position: relative;
   height: 350px;
+  width: 200px;
   background: #122139;
   border-radius: 300px 300px 0 0;
-  overflow: visible;
   transition: opacity 1.5s ease;
-  z-index: 10;
-  left: 0;
-  top: 0;
-  box-sizing: border-box;
-  border: 2px solid #3b536a;
-  box-shadow: inset 0 0 10px #1a2b44;
 }
+
 .glass:before {
   content: "";
   height: 10px;
@@ -46,8 +38,9 @@ body {
   position: absolute;
   left: 87px;
   top: -25px;
-  box-sizing: border-box;
+  transform-origin: center;
 }
+
 .glass:after {
   content: "";
   position: absolute;
@@ -56,22 +49,20 @@ body {
   background: #a52a2a;
   top: 100%;
   left: -13%;
-  border-radius: 30px 30px 0 0;
-  box-shadow: 0 0 15px #6f0d0d;
 }
 
-/* Brilho do vidro */
 .shine {
-  position: absolute;
   width: 12px;
   height: 140px;
   background: white;
   opacity: 0.2;
+  position: absolute;
   left: 85%;
   top: 80px;
   border-radius: 100px;
-  z-index: 20;
+  z-index: 10;
 }
+
 .shine:before {
   content: "";
   width: 12px;
@@ -82,7 +73,6 @@ body {
   border-radius: 100px;
 }
 
-/* Pétalas */
 .petals > div {
   position: absolute;
   background: #d52d58;
@@ -90,60 +80,34 @@ body {
   height: 80px;
   top: 55px;
   transition: all 0.5s ease-out;
-  box-shadow: 0 0 50px rgba(245, 148, 184, 0.5);
   border-radius: 15px;
-  transform-origin: bottom center;
+  box-shadow: 0 0 30px #f594b8;
+  /* Reposição para que fiquem em cima da glass */
+  z-index: 20;
 }
+
 .petals > div:nth-child(1) {
   left: 80px;
   top: 60px;
   background: #d52d58;
-  box-shadow: 0px 0px 30px #f594b8;
 }
+
 .petals > div:nth-child(2), .petals > div:nth-child(4), .petals > div:nth-child(6) {
   background: #b81b43;
   left: 60px;
-  border-radius: 0 30px 0 30px;
+  border-radius: 0px 30px 0px 30px;
   transform-origin: bottom right;
 }
+
 .petals > div:nth-child(3), .petals > div:nth-child(5), .petals > div:nth-child(7) {
   background: #b81b43;
   left: 100px;
-  border-radius: 30px 0 30px 0;
+  border-radius: 30px 0px 30px 0px;
   transform-origin: bottom left;
 }
-.petals > div:nth-child(2) {
-  top: 75px;
-  height: 70px;
-  animation: bloom2 3s ease-in-out forwards;
-}
-.petals > div:nth-child(3) {
-  top: 75px;
-  height: 70px;
-  animation: bloom3 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
-}
-.petals > div:nth-child(4) {
-  top: 70px;
-  height: 75px;
-  animation: bloom4 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
-}
-.petals > div:nth-child(5) {
-  top: 70px;
-  height: 75px;
-  animation: bloom5 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
-}
-.petals > div:nth-child(6) {
-  top: 65px;
-  height: 70px;
-  animation: bloom6 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
-}
-.petals > div:nth-child(7) {
-  top: 65px;
-  height: 70px;
-  animation: bloom7 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
-}
 
-/* Pétalas "mortas" que caem */
+/* Animações originais removidas para voo manual */
+
 .deadPetals > div {
   position: absolute;
   background: #d52d58;
@@ -154,6 +118,7 @@ body {
   box-shadow: 0 0 30px rgba(245, 148, 184, 0.5);
   transition: all 0.5s ease-out;
 }
+
 .deadPetals > div:nth-child(1) {
   left: 67px;
   transform: rotate(-30deg);
@@ -175,7 +140,6 @@ body {
   animation: falling 20s 16s ease-in-out infinite;
 }
 
-/* Folhas */
 .leaves > div:nth-last-child(1) {
   position: absolute;
   width: 55px;
@@ -185,6 +149,7 @@ body {
   left: 75px;
   border-radius: 100px;
 }
+
 .leaves > div:nth-child(1) {
   position: absolute;
   width: 6px;
@@ -194,97 +159,129 @@ body {
   left: 100px;
   border-radius: 0 0 100px 100px;
 }
+
 .leaves > div:nth-child(2) {
   position: absolute;
   width: 30px;
   height: 50px;
-  background: #054c05;
   top: 180px;
-  left: 80px;
   border-radius: 5px 40px 20px 40px;
+  background: #054c05;
   transform-origin: bottom;
   transform: rotate(-30deg);
+  left: 80px;
   box-shadow: inset 5px 5px #066406;
 }
+
 .leaves > div:nth-child(3) {
   position: absolute;
   width: 30px;
   height: 50px;
-  background: #054c05;
   top: 150px;
-  left: 95px;
   border-radius: 40px 5px 40px 20px;
+  background: #054c05;
   transform-origin: bottom;
   transform: rotate(30deg);
+  left: 95px;
   box-shadow: inset -5px 5px #066406;
 }
 
-/* Espinhos */
 .thorns > div {
   position: absolute;
   width: 0;
   height: 0;
   top: 140px;
 }
+
 .thorns > div:nth-child(odd) {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #054c05;
   left: 105px;
 }
+
 .thorns > div:nth-child(even) {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-right: 5px solid #054c05;
   left: 95px;
 }
-.thorns > div:nth-child(1) { top: 200px; }
-.thorns > div:nth-child(2) { top: 170px; }
-.thorns > div:nth-child(4) { top: 230px; }
 
-/* Animações das pétalas para desabrochar */
-@keyframes bloom2 {
-  50% {
-    transform: rotate(-90deg);
-    top: 200px;
-    left: 100px;
-  }
-  100% {
-    transform: rotate(-60deg);
-    top: 252px;
-    left: 50px;
-    background: #71122a;
-    box-shadow: 0 0 0 rgba(245, 148, 184, 0);
-  }
+.thorns > div:nth-child(1) {
+  top: 200px;
 }
-@keyframes bloom3 { 100% { transform: rotate(45deg); } }
-@keyframes bloom4 { 100% { transform: rotate(-20deg); } }
-@keyframes bloom5 { 100% { transform: rotate(20deg); } }
-@keyframes bloom6 { 100% { transform: rotate(-5deg); } }
-@keyframes bloom7 { 100% { transform: rotate(5deg); } }
-
-/* Pulsação das pétalas */
-@keyframes glowing {
-  50% {
-    background: #d7365f;
-    box-shadow: 0 0 60px #f594b8;
-  }
+.thorns > div:nth-child(2) {
+  top: 170px;
+}
+.thorns > div:nth-child(4) {
+  top: 230px;
 }
 
-/* Pétalas caindo */
-@keyframes falling {
-  20% {
-    top: 335px;
-    background: #9d193b;
-    box-shadow: 0 0 0 rgba(245, 148, 184, 0);
-  }
-  100% {
-    top: 335px;
-    opacity: 0;
-  }
+#poemScreen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 800px;
+  padding: 30px 40px;
+  background: rgba(15, 15, 15, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 0 30px #bb3c5f;
+  color: #f5a4b8;
+  opacity: 0;
+  pointer-events: none;
+  user-select: text;
+  transition: opacity 1.5s ease;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  text-align: center;
+  white-space: pre-wrap;
+  z-index: 50;
 }
 
-/* Animação da leve vibração antes de dispersar */
+#poemScreen.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#poemText {
+  margin: 0;
+  font-weight: 400;
+}
+
+#happyText {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #f56c6c;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  user-select: none;
+  font-weight: 700;
+}
+
+#happyText.show {
+  opacity: 1;
+}
+
+/* Voo suave pétalas */
+.petals.flying > div {
+  transition: transform 4s cubic-bezier(0.22, 1, 0.36, 1), opacity 4s ease-in-out;
+  will-change: transform, opacity;
+}
+
+/* Animação leve de shake no jarro */
 @keyframes shake {
-  0%, 100% { transform: translate(0,0) rotate(0deg); }
-  25% { transform: translate(2px, -2px) rotate(1deg
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25% {
+    transform: translate(calc(-50% + 5px), calc(-50% - 5px)) rotate(3deg);
+  }
+  50% {
+    transform: translate(calc(-50% - 5px), calc(-50% + 5px)) rotate(-3deg);
+  }
+  75% {
+    transform: translate(calc(-50% + 5px), calc(-50% + 5px)) rotate(3deg);
+  }
+}
