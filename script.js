@@ -41,8 +41,39 @@ flower.addEventListener("click", () => {
 
     // Aplica transformações aleatórias nas pétalas para voarem para bordas
     [...petals.children].forEach((petal) => {
-      const angle = Math.random() * 2 * Math.PI; // direção aleatória
-      const dist = 600 + Math.random() * 200; // distância pra fora da tela
-      const rotate = (Math.random() - 0.5) * 720; // rotação aleatória até +/-360º duas vezes
+      const angle = Math.random() * 2 * Math.PI;
+      const dist = 600 + Math.random() * 200;
+      const rotate = (Math.random() - 0.5) * 720;
       petal.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${rotate}deg)`;
-      petal.style.opacity =
+      petal.style.opacity = '0';
+    });
+
+    // Faz a flor sumir aos poucos para não ficar bugado visualmente
+    flower.style.opacity = '0';
+
+    // Depois que sumir, mostra o poema com a animação de digitação
+    setTimeout(() => {
+      poemScreen.classList.add('visible');
+      typePoem(poem, poemText, () => {
+        happyText.classList.add('show');
+      });
+    }, 3000);
+  }, 1500);
+});
+
+function typePoem(text, element, callback) {
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      let delay = 30 + Math.random() * 80; // variação de delay para parecer humano
+      if (text.charAt(i - 1) === '\n') delay += 150;
+      setTimeout(type, delay);
+    } else {
+      if (callback) callback();
+    }
+  }
+  element.textContent = '';
+  type();
+}
