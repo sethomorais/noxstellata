@@ -82,7 +82,6 @@ body {
   transition: all 0.5s ease-out;
   border-radius: 15px;
   box-shadow: 0 0 30px #f594b8;
-  /* Reposição para que fiquem em cima da glass */
   z-index: 20;
 }
 
@@ -105,8 +104,6 @@ body {
   border-radius: 30px 0px 30px 0px;
   transform-origin: bottom left;
 }
-
-/* Animações originais removidas para voo manual */
 
 .deadPetals > div {
   position: absolute;
@@ -221,8 +218,8 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 800px;
+  max-height: 70vh;
   padding: 30px 40px;
   background: rgba(15, 15, 15, 0.85);
   border-radius: 12px;
@@ -237,6 +234,8 @@ body {
   line-height: 2.4rem;
   text-align: center;
   white-space: pre-wrap;
+  overflow-y: auto;
+  transform: translate(-50%, -50%);
   z-index: 50;
 }
 
@@ -245,9 +244,20 @@ body {
   pointer-events: auto;
 }
 
+#poemTitle {
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #f56c6c;
+  font-family: 'Great Vibes', cursive;
+  user-select: none;
+  min-height: 3.5rem;
+}
+
 #poemText {
   margin: 0;
   font-weight: 400;
+  min-height: 20rem; /* para evitar salto de layout */
 }
 
 #happyText {
@@ -264,24 +274,7 @@ body {
   opacity: 1;
 }
 
-/* Voo suave pétalas */
 .petals.flying > div {
   transition: transform 4s cubic-bezier(0.22, 1, 0.36, 1), opacity 4s ease-in-out;
   will-change: transform, opacity;
-}
-
-/* Animação leve de shake no jarro */
-@keyframes shake {
-  0%, 100% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  25% {
-    transform: translate(calc(-50% + 5px), calc(-50% - 5px)) rotate(3deg);
-  }
-  50% {
-    transform: translate(calc(-50% - 5px), calc(-50% + 5px)) rotate(-3deg);
-  }
-  75% {
-    transform: translate(calc(-50% + 5px), calc(-50% + 5px)) rotate(3deg);
-  }
 }
