@@ -1,111 +1,290 @@
+/* Reset e base */
 body {
   margin: 0;
   background: #080f1a;
   overflow: hidden;
+  height: 100vh;
+  font-family: 'Georgia', serif;
+  color: white;
 }
 
-/* ===== Flor container ===== */
+/* Container flor */
 .container {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  transition: transform 2s ease, opacity 1.5s ease;
-}
-.container.grow {
-  transform: translate(-50%, -50%) scale(8);
-}
-.container.fade-out {
-  opacity: 0;
+  transition: opacity 1.5s ease;
+  user-select: none;
+  width: 200px;
+  height: 350px;
 }
 
-/* ===== Glass ===== */
+/* Vidro */
 .glass {
   position: absolute;
   width: 200px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 100px / 200px;
-  overflow: hidden;
-  z-index: 10;
+  height: 350px;
+  background: #122139;
+  border-radius: 300px 300px 0 0;
+  overflow: visible;
   transition: opacity 1.5s ease;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  border: 2px solid #3b536a;
+  box-shadow: inset 0 0 10px #1a2b44;
 }
+.glass:before {
+  content: "";
+  height: 10px;
+  width: 10px;
+  border: 10px solid #122139;
+  border-radius: 100%;
+  position: absolute;
+  left: 87px;
+  top: -25px;
+  box-sizing: border-box;
+}
+.glass:after {
+  content: "";
+  position: absolute;
+  height: 15px;
+  width: 250px;
+  background: #a52a2a;
+  top: 100%;
+  left: -13%;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 0 15px #6f0d0d;
+}
+
+/* Brilho do vidro */
 .shine {
   position: absolute;
-  width: 60px;
-  height: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
-  transform: skewX(-20deg);
+  width: 12px;
+  height: 140px;
+  background: white;
+  opacity: 0.2;
+  left: 85%;
+  top: 80px;
+  border-radius: 100px;
+  z-index: 20;
 }
-
-/* ===== Stem and Thorns ===== */
-.thorns div {
-  width: 2px;
-  height: 15px;
-  background: #2c3e1f;
-  margin: 10px auto;
-}
-
-/* ===== Leaves ===== */
-.leaves div {
-  width: 30px;
-  height: 15px;
-  background: #2c3e1f;
-  border-radius: 50%;
-  margin: 5px auto;
-}
-
-/* ===== Petals ===== */
-.petals div {
-  width: 60px;
-  height: 60px;
-  background: #b11226;
-  border-radius: 50%;
+.shine:before {
+  content: "";
+  width: 12px;
+  height: 20px;
   position: absolute;
+  background: white;
+  top: 160px;
+  border-radius: 100px;
 }
 
-/* ===== Dead Petals ===== */
-.deadPetals div {
-  width: 50px;
+/* Pétalas */
+.petals > div {
+  position: absolute;
+  background: #d52d58;
+  width: 45px;
+  height: 80px;
+  top: 55px;
+  transition: all 0.5s ease-out;
+  box-shadow: 0 0 50px rgba(245, 148, 184, 0.5);
+  border-radius: 15px;
+  transform-origin: bottom center;
+}
+.petals > div:nth-child(1) {
+  left: 80px;
+  top: 60px;
+  background: #d52d58;
+  box-shadow: 0px 0px 30px #f594b8;
+}
+.petals > div:nth-child(2), .petals > div:nth-child(4), .petals > div:nth-child(6) {
+  background: #b81b43;
+  left: 60px;
+  border-radius: 0 30px 0 30px;
+  transform-origin: bottom right;
+}
+.petals > div:nth-child(3), .petals > div:nth-child(5), .petals > div:nth-child(7) {
+  background: #b81b43;
+  left: 100px;
+  border-radius: 30px 0 30px 0;
+  transform-origin: bottom left;
+}
+.petals > div:nth-child(2) {
+  top: 75px;
+  height: 70px;
+  animation: bloom2 3s ease-in-out forwards;
+}
+.petals > div:nth-child(3) {
+  top: 75px;
+  height: 70px;
+  animation: bloom3 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+.petals > div:nth-child(4) {
+  top: 70px;
+  height: 75px;
+  animation: bloom4 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+.petals > div:nth-child(5) {
+  top: 70px;
+  height: 75px;
+  animation: bloom5 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+.petals > div:nth-child(6) {
+  top: 65px;
+  height: 70px;
+  animation: bloom6 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+.petals > div:nth-child(7) {
+  top: 65px;
+  height: 70px;
+  animation: bloom7 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+}
+
+/* Pétalas "mortas" que caem */
+.deadPetals > div {
+  position: absolute;
+  background: #d52d58;
+  width: 20px;
+  height: 15px;
+  top: 120px;
+  border-radius: 0 30px 0 30px;
+  box-shadow: 0 0 30px rgba(245, 148, 184, 0.5);
+  transition: all 0.5s ease-out;
+}
+.deadPetals > div:nth-child(1) {
+  left: 67px;
+  transform: rotate(-30deg);
+  animation: falling 20s 4s ease-in-out infinite;
+}
+.deadPetals > div:nth-child(2) {
+  left: 104px;
+  transform: rotate(-30deg);
+  animation: falling 20s 8s ease-in-out infinite;
+}
+.deadPetals > div:nth-child(3) {
+  left: 91px;
+  transform: rotate(-30deg);
+  animation: falling 20s 12s ease-in-out infinite;
+}
+.deadPetals > div:nth-child(4) {
+  left: 69px;
+  transform: rotate(-30deg);
+  animation: falling 20s 16s ease-in-out infinite;
+}
+
+/* Folhas */
+.leaves > div:nth-last-child(1) {
+  position: absolute;
+  width: 55px;
+  height: 30px;
+  background: #338f37;
+  top: 120px;
+  left: 75px;
+  border-radius: 100px;
+}
+.leaves > div:nth-child(1) {
+  position: absolute;
+  width: 6px;
+  height: 210px;
+  background: #054c05;
+  top: 95px;
+  left: 100px;
+  border-radius: 0 0 100px 100px;
+}
+.leaves > div:nth-child(2) {
+  position: absolute;
+  width: 30px;
   height: 50px;
-  background: #70101a;
-  border-radius: 50%;
+  background: #054c05;
+  top: 180px;
+  left: 80px;
+  border-radius: 5px 40px 20px 40px;
+  transform-origin: bottom;
+  transform: rotate(-30deg);
+  box-shadow: inset 5px 5px #066406;
+}
+.leaves > div:nth-child(3) {
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  background: #054c05;
+  top: 150px;
+  left: 95px;
+  border-radius: 40px 5px 40px 20px;
+  transform-origin: bottom;
+  transform: rotate(30deg);
+  box-shadow: inset -5px 5px #066406;
 }
 
-/* ===== Tela do poema ===== */
-#poemScreen {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, #0d0d0d, #1a0b0b);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  color: white;
-  font-family: 'Georgia', serif;
-  font-size: 1.3rem;
-  line-height: 1.8rem;
-  overflow-y: auto;
+/* Espinhos */
+.thorns > div {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 140px;
 }
-.hidden {
-  display: none;
+.thorns > div:nth-child(odd) {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #054c05;
+  left: 105px;
+}
+.thorns > div:nth-child(even) {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #054c05;
+  left: 95px;
+}
+.thorns > div:nth-child(1) { top: 200px; }
+.thorns > div:nth-child(2) { top: 170px; }
+.thorns > div:nth-child(4) { top: 230px; }
+
+/* Animações das pétalas para desabrochar */
+@keyframes bloom2 {
+  50% {
+    transform: rotate(-90deg);
+    top: 200px;
+    left: 100px;
+  }
+  100% {
+    transform: rotate(-60deg);
+    top: 252px;
+    left: 50px;
+    background: #71122a;
+    box-shadow: 0 0 0 rgba(245, 148, 184, 0);
+  }
+}
+@keyframes bloom3 { 100% { transform: rotate(45deg); } }
+@keyframes bloom4 { 100% { transform: rotate(-20deg); } }
+@keyframes bloom5 { 100% { transform: rotate(20deg); } }
+@keyframes bloom6 { 100% { transform: rotate(-5deg); } }
+@keyframes bloom7 { 100% { transform: rotate(5deg); } }
+
+/* Pulsação das pétalas */
+@keyframes glowing {
+  50% {
+    background: #d7365f;
+    box-shadow: 0 0 60px #f594b8;
+  }
 }
 
-#poemText {
-  white-space: pre-wrap;
-  max-width: 800px;
-  text-align: left;
+/* Pétalas caindo */
+@keyframes falling {
+  20% {
+    top: 335px;
+    background: #9d193b;
+    box-shadow: 0 0 0 rgba(245, 148, 184, 0);
+  }
+  100% {
+    top: 335px;
+    opacity: 0;
+  }
 }
 
-#happyText {
-  margin-top: 40px;
-  font-size: 2rem;
-  font-weight: bold;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-}
-#happyText.show {
-  opacity: 1;
-}
+/* Animação da leve vibração antes de dispersar */
+@keyframes shake {
+  0%, 100% { transform: translate(0,0) rotate(0deg); }
+  25% { transform: translate(2px, -2px) rotate(1deg
