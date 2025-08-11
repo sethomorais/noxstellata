@@ -10,31 +10,31 @@ const happyText = document.getElementById("happyText");
 // Poema com título e estrofes separadas em <p>
 const poemHTML = `
   <p class="poem-title">Imperio en tus ojos</p>
-  <p>En tus ojos veo mundos que no existen para nadie más,
-     constelaciones atrapadas en abismos que me devoran sin piedad.
-     Son portales… y cada vez que los miro,
+  <p>En tus ojos veo mundos que no existen para nadie más,<br>
+     constelaciones atrapadas en abismos que me devoran sin piedad.<br>
+     Son portales… y cada vez que los miro,<br>
      caigo más hondo, hasta olvidar quién soy.</p>
 
-  <p>Tu manera es una conspiración silenciosa contra el resto del mundo,
-     una danza rara cuyo ritmo sólo yo conozco.
-     Y por eso, cada día planeo tu conquista como una guerra
+  <p>Tu manera es una conspiración silenciosa contra el resto del mundo,<br>
+     una danza rara cuyo ritmo sólo yo conozco.<br>
+     Y por eso, cada día planeo tu conquista como una guerra<br>
      — no para encerrarte, sino para que nunca escapes de mí.</p>
 
-  <p>Vos sos mi imperio, levantado sobre huesos y promesas,
-     mi cetro, mi corona, mi capital de carne y alma.
-     Aunque me esconda en las sombras,
+  <p>Vos sos mi imperio, levantado sobre huesos y promesas,<br>
+     mi cetro, mi corona, mi capital de carne y alma.<br>
+     Aunque me esconda en las sombras,<br>
      mi juramento sangra: siempre estoy acá.</p>
 
   <p>Lo que siento por vos no se mide en palabras<br>
-     — es acero fundido en mi pecho,
+     — es acero fundido en mi pecho,<br>
      es veneno y cura en la misma dosis.</p>
 
-  <p>Y si el mundo se atreve a tocarte,
-     que sepa: mi amor también es una hoja afilada.
+  <p>Y si el mundo se atreve a tocarte,<br>
+     que sepa: mi amor también es una hoja afilada.<br>
      Y por vos, la usaré.</p>
 `;
 
-// Função para "digitar" o texto poema com HTML (para poder usar tags)
+// Função para "digitar" o texto poema com HTML (respeitando parágrafos)
 function typePoemHTML(html, container, callback) {
   container.innerHTML = "";
   const tempDiv = document.createElement("div");
@@ -42,7 +42,6 @@ function typePoemHTML(html, container, callback) {
 
   let paragraphs = Array.from(tempDiv.children);
   let pIndex = 0;
-  let charIndex = 0;
 
   function typeParagraph() {
     if (pIndex >= paragraphs.length) {
@@ -58,29 +57,36 @@ function typePoemHTML(html, container, callback) {
     }
 
     let p = container.children[pIndex];
-    let text = paragraphs[pIndex].innerHTML;
+    let htmlText = paragraphs[pIndex].innerHTML;
+    let pureText = htmlText.replace(/<br\s*\/?>/gi, "\n");
 
-    // Substitui <br> por \n para digitação
-    let pureText = text.replace(/<br\s*\/?>/gi, "\n");
+    let charIndex = 0;
 
-    if (charIndex < pureText.length) {
-      let nextChar = pureText.charAt(charIndex);
-      if (nextChar === "\n") {
-        p.innerHTML += "<br>";
+    function typeChar() {
+      if (charIndex < pureText.length) {
+        let nextChar = pureText.charAt(charIndex);
+        if (nextChar === "\n") {
+          p.innerHTML += "<br>";
+        } else {
+          let safeChar = nextChar
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+          p.innerHTML += safeChar;
+        }
+        charIndex++;
+        let delay = 20 + Math.random() * 40;
+        if (nextChar === "\n") delay += 100;
+        setTimeout(typeChar, delay);
       } else {
-        p.innerHTML += nextChar;
+        pIndex++;
+        setTimeout(typeParagraph, 400);
       }
-      charIndex++;
-      let baseDelay = 20;
-      let variance = 40;
-      let delay = baseDelay + Math.random() * variance;
-      if (nextChar === "\n") delay += 120;
-      setTimeout(typeParagraph, delay);
-    } else {
-      pIndex++;
-      charIndex = 0;
-      setTimeout(typeParagraph, 400);
     }
+
+    typeChar();
   }
 
   typeParagraph();
