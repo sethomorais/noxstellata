@@ -34,7 +34,7 @@ const poemHTML = `
      Y por vos, la usaré.</p>
 `;
 
-// Função para "digitar" o texto poema com HTML (respeitando parágrafos)
+// Função para digitar o poema respeitando parágrafos (HTML)
 function typePoemHTML(html, container, callback) {
   container.innerHTML = "";
   const tempDiv = document.createElement("div");
@@ -93,7 +93,7 @@ function typePoemHTML(html, container, callback) {
 }
 
 flower.addEventListener("click", () => {
-  // Desaparecer o vidro suavemente
+  // Desaparecer vidro suavemente
   glass.style.opacity = "0";
 
   // Leve escala no jarro aberto
@@ -101,26 +101,55 @@ flower.addEventListener("click", () => {
   flower.style.transform = "translate(-50%, -50%) scale(1.05)";
 
   setTimeout(() => {
-    // Esconder folhas e espinhos
     leaves.style.opacity = "0";
     thorns.style.opacity = "0";
 
-    // Pétalas voando suavemente
     petals.classList.add("flying");
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
     [...petals.children].forEach((petal) => {
-      const baseAngle = Math.random() * Math.PI * 2;
-      const spread = Math.PI / 4;
-      const angle = baseAngle + (Math.random() - 0.5) * spread;
-      const dist = 500 + Math.random() * 200;
-      const rotate = (Math.random() - 0.5) * 360;
-      petal.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${rotate}deg)`;
+      const rect = petal.getBoundingClientRect();
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.top + rect.height / 2;
+
+      // Vetores para as bordas da viewport
+      const vectors = [
+        { x: startX - 0, y: startY - 0 },               // topo-esq
+        { x: vw - startX, y: startY - 0 },              // topo-dir
+        { x: vw - startX, y: vh - startY },             // baixo-dir
+        { x: startX - 0, y: vh - startY },              // baixo-esq
+      ];
+
+      // Escolher o vetor mais distante (borda mais longe)
+      let maxDist = 0;
+      let bestVector = vectors[0];
+      for (const v of vectors) {
+        const dist = Math.hypot(v.x, v.y);
+        if (dist > maxDist) {
+          maxDist = dist;
+          bestVector = v;
+        }
+      }
+
+      // Ângulo para voar na direção da borda mais distante
+      const angle = Math.atan2(bestVector.y, bestVector.x);
+
+      // Distância aleatória entre 600 e 900 para sumir fora da tela
+      const dist = 600 + Math.random() * 300;
+
+      const translateX = Math.cos(angle) * dist;
+      const translateY = Math.sin(angle) * dist;
+
+      petal.style.transition = "transform 3s ease-in-out, opacity 3s ease-in-out";
+      petal.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${(Math.random() - 0.5) * 360}deg)`;
       petal.style.opacity = "0";
     });
 
-    // Desaparecer a flor toda
+    flower.style.transition = "opacity 3s ease";
     flower.style.opacity = "0";
 
-    // Mostrar o poema após voo das pétalas
     setTimeout(() => {
       poemScreen.classList.add("visible");
       typePoemHTML(poemHTML, poemText, () => {
