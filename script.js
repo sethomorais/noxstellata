@@ -15,12 +15,17 @@ constelaciones atrapadas en abismos que me devoran sin piedad.
 Son portales… y cada vez que los miro, caigo más hondo, hasta olvidar quién soy.
 
 Tu manera es una conspiración silenciosa contra el resto del mundo,
-una danza rara cuyo ritmo sólo yo conozco. Y por eso, cada día planeo tu conquista como una guerra — no para encerrarte, sino para que nunca escapes de mí.
+una danza rara cuyo ritmo sólo yo conozco.
+Y por eso, cada día planeo tu conquista como una guerra —
+no para encerrarte, sino para que nunca escapes de mí.
 
-Vos sos mi imperio, levantado sobre huesos y promesas, mi cetro, mi corona, mi capital de carne y alma. Aunque me esconda en las sombras,
+Vos sos mi imperio, levantado sobre huesos y promesas,
+mi cetro, mi corona, mi capital de carne y alma.
+Aunque me esconda en las sombras,
 mi juramento sangra: siempre estoy acá.
 
-Lo que siento por vos no se mide en palabras — es acero fundido en mi pecho,
+Lo que siento por vos no se mide en palabras —
+es acero fundido en mi pecho,
 es veneno y cura en la misma dosis.
 
 Y si el mundo se atreve a tocarte,
@@ -28,58 +33,52 @@ que sepa: mi amor también es una hoja afilada.
 Y por vos, la usaré.`;
 
 flower.addEventListener("click", () => {
-  // Desaparece o vidro suave
   glass.style.transition = "opacity 1.5s ease";
   glass.style.opacity = "0";
 
-  // Vibe leve de abertura (como "abrir o jarro")
   flower.style.transition = "transform 1.5s ease";
   flower.style.transform = "translate(-50%, -50%) scale(1.05)";
 
-  // Após "abrir", dispersa as pétalas
   setTimeout(() => {
     petals.classList.add("flying");
     leaves.style.opacity = "0";
     thorns.style.opacity = "0";
 
-    // Pétalas voando estilo vento suave
     [...petals.children].forEach((petal) => {
       const baseAngle = Math.random() * Math.PI * 2;
-      const spread = Math.PI / 4; // espalhamento +- 45 graus do ângulo base
+      const spread = Math.PI / 4;
       const angle = baseAngle + (Math.random() - 0.5) * spread;
       const dist = 500 + Math.random() * 200;
       const rotate = (Math.random() - 0.5) * 360;
       petal.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${rotate}deg)`;
-      petal.style.opacity = '0';
+      petal.style.opacity = "0";
     });
 
-    // O jarro desaparece suavemente
     flower.style.transition = "opacity 3s ease";
-    flower.style.opacity = '0';
+    flower.style.opacity = "0";
 
-    // Mostra poema após 3s de voo
     setTimeout(() => {
-      poemScreen.classList.add('visible');
+      poemScreen.classList.add("visible");
       typePoem(poemTitle, poemBody, poemText, () => {
-        happyText.classList.add('show'); // Aparece só depois do poema
+        happyText.classList.add("show");
       });
     }, 3000);
   }, 1500);
 });
 
-// Digitação mais rápida com pausas humanas
 function typePoem(title, body, element, callback) {
   element.innerHTML = `<h1 class="poem-title">${title}</h1><p></p>`;
-  const p = element.querySelector('p');
+  const p = element.querySelector("p");
   let i = 0;
+
   function type() {
     if (i < body.length) {
       p.textContent += body.charAt(i);
       i++;
-      let baseDelay = 20; // mais rápido
-      let variance = 40; // menor variação
+      let baseDelay = 20;
+      let variance = 40;
       let delay = baseDelay + Math.random() * variance;
-      if (body.charAt(i - 1) === '\n') delay += 120;
+      if (body.charAt(i - 1) === "\n") delay += 120;
       setTimeout(type, delay);
     } else {
       if (callback) callback();
