@@ -7,24 +7,25 @@ const poemScreen = document.getElementById("poemScreen");
 const poemText = document.getElementById("poemText");
 const happyText = document.getElementById("happyText");
 
-const poem = `Imperio en tus ojos
+const poemTitle = "Imperio en tus ojos";
+const poemBody = `
 
 En tus ojos veo mundos que no existen para nadie más,
-          constelaciones atrapadas en abismos que me devoran sin piedad.
-          Son portales… y cada vez que los miro,          caigo más hondo, hasta olvidar quién soy.
+constelaciones atrapadas en abismos que me devoran sin piedad.
+Son portales… y cada vez que los miro, caigo más hondo, hasta olvidar quién soy.
 
-          Tu manera es una conspiración silenciosa contra el resto del mundo,
-          una danza rara cuyo ritmo sólo yo conozco.          Y por eso, cada día planeo tu conquista como una guerra          — no para encerrarte, sino para que nunca escapes de mí.
+Tu manera es una conspiración silenciosa contra el resto del mundo,
+una danza rara cuyo ritmo sólo yo conozco. Y por eso, cada día planeo tu conquista como una guerra — no para encerrarte, sino para que nunca escapes de mí.
 
-          Vos sos mi imperio, levantado sobre huesos y promesas,          mi cetro, mi corona, mi capital de carne y alma.          Aunque me esconda en las sombras,
-          mi juramento sangra: siempre estoy acá.
+Vos sos mi imperio, levantado sobre huesos y promesas, mi cetro, mi corona, mi capital de carne y alma. Aunque me esconda en las sombras,
+mi juramento sangra: siempre estoy acá.
 
-          Lo que siento por vos no se mide en palabras
-          — es acero fundido en mi pecho,          es veneno y cura en la misma dosis.
+Lo que siento por vos no se mide en palabras — es acero fundido en mi pecho,
+es veneno y cura en la misma dosis.
 
-          Y si el mundo se atreve a tocarte,
-          que sepa: mi amor también es una hoja afilada.
-          Y por vos, la usaré.`;
+Y si el mundo se atreve a tocarte,
+que sepa: mi amor también es una hoja afilada.
+Y por vos, la usaré.`;
 
 flower.addEventListener("click", () => {
   // Desaparece o vidro suave
@@ -59,7 +60,7 @@ flower.addEventListener("click", () => {
     // Mostra poema após 3s de voo
     setTimeout(() => {
       poemScreen.classList.add('visible');
-      typePoem(poem, poemText, () => {
+      typePoem(poemTitle, poemBody, poemText, () => {
         happyText.classList.add('show'); // Aparece só depois do poema
       });
     }, 3000);
@@ -67,21 +68,22 @@ flower.addEventListener("click", () => {
 });
 
 // Digitação mais rápida com pausas humanas
-function typePoem(text, element, callback) {
+function typePoem(title, body, element, callback) {
+  element.innerHTML = `<h1 class="poem-title">${title}</h1><p></p>`;
+  const p = element.querySelector('p');
   let i = 0;
   function type() {
-    if (i < text.length) {
-      element.textContent += text.charAt(i);
+    if (i < body.length) {
+      p.textContent += body.charAt(i);
       i++;
       let baseDelay = 20; // mais rápido
-      let variance = 40; // menor variação para parecer natural
+      let variance = 40; // menor variação
       let delay = baseDelay + Math.random() * variance;
-      if (text.charAt(i - 1) === '\n') delay += 120; // pausa maior em nova linha
+      if (body.charAt(i - 1) === '\n') delay += 120;
       setTimeout(type, delay);
     } else {
       if (callback) callback();
     }
   }
-  element.textContent = '';
   type();
 }
