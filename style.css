@@ -16,7 +16,7 @@ body {
   transform-origin: center center;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease; /* transição fixa */
   user-select: none;
 }
 
@@ -78,10 +78,11 @@ body {
   width: 45px;
   height: 80px;
   top: 55px;
-  transition: all 0.5s ease-out;
+  transition: transform 4s cubic-bezier(0.22, 1, 0.36, 1), opacity 4s ease-in-out; /* transição fixa */
   border-radius: 15px;
   box-shadow: 0 0 30px #f594b8;
   z-index: 20;
+  will-change: transform, opacity;
 }
 
 .petals > div:nth-child(1) {
@@ -204,79 +205,4 @@ body {
 }
 
 .thorns > div:nth-child(1) {
-  top: 200px;
-}
-.thorns > div:nth-child(2) {
-  top: 170px;
-}
-.thorns > div:nth-child(4) {
-  top: 230px;
-}
-
-#poemScreen {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  max-width: 900px;
-  max-height: 80vh;
-  padding: 40px 50px;
-  background: rgba(15, 15, 15, 0.85);
-  border-radius: 12px;
-  box-shadow: 0 0 30px #bb3c5f;
-  color: #f5a4b8;
-  opacity: 0;
-  pointer-events: none;
-  user-select: text;
-  transition: opacity 1.5s ease;
-  font-family: 'Georgia', serif;
-  font-size: 1.7rem;
-  line-height: 2.6rem;
-  text-align: center;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transform: translate(-50%, -50%);
-  z-index: 50;
-}
-
-#poemScreen.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#poemTitle {
-  margin: 0 0 20px 0;
-  font-weight: 700;
-  font-size: 3rem;
-  color: #f56c6c;
-  font-family: 'Great Vibes', cursive;
-  user-select: none;
-  min-height: 3.5rem;
-}
-
-#poemText {
-  margin: 0;
-  font-weight: 400;
-  min-height: 20rem;
-  text-align: center;
-}
-
-#happyText {
-  margin-top: 20px;
-  font-size: 2rem;
-  color: #f56c6c;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-  user-select: none;
-  font-weight: 700;
-}
-
-#happyText.show {
-  opacity: 1;
-}
-
-.petals.flying > div {
-  transition: transform 4s cubic-bezier(0.22, 1, 0.36, 1), opacity 4s ease-in-out;
-  will-change: transform, opacity;
-}
+  top:
