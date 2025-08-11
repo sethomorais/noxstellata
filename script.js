@@ -23,26 +23,26 @@ Y por vos, la usaré.`;
 let isOpen = false;
 
 jarContainer.addEventListener('click', () => {
-  if (isOpen) return; // evita clicar de novo enquanto aberto
+  if (isOpen) return;
   isOpen = true;
 
-  // anima jarro sumindo
-  jarContainer.style.transition = 'transform 1.5s ease, opacity 1.5s ease';
+  // faz jarro sumir suavemente
+  jarContainer.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
+  jarContainer.style.opacity = '0';
   jarContainer.style.transform = 'translate(-50%, -50%) scale(0.7)';
-  jarContainer.style.opacity = '0.3';
 
-  // anima pétalas voando para as bordas em posições random
+  // anima pétalas voando para bordas
   petals.classList.add('flying');
   petalDivs.forEach((petal, i) => {
     const angle = (i / petalDivs.length) * 360;
-    const distance = 600 + Math.random() * 200; // distância para as bordas
+    const distance = 600 + Math.random() * 200;
     const rad = (angle * Math.PI) / 180;
 
+    petal.style.transition = 'transform 4s cubic-bezier(0.22, 1, 0.36, 1), opacity 4s ease-in-out';
     petal.style.transform = `translate(${Math.cos(rad) * distance}px, ${Math.sin(rad) * distance}px) rotate(${(Math.random() * 60) - 30}deg)`;
     petal.style.opacity = '0';
   });
 
-  // após 1.8s mostra o poema
   setTimeout(() => {
     poemScreen.classList.add('visible');
     startTyping(poem, poemTextElem, () => {
@@ -51,7 +51,6 @@ jarContainer.addEventListener('click', () => {
   }, 1800);
 });
 
-// função digitação letra a letra com pausas variáveis (rápida e fluida)
 function startTyping(text, element, callback) {
   let i = 0;
 
@@ -59,8 +58,7 @@ function startTyping(text, element, callback) {
     if (i < text.length) {
       element.textContent += text.charAt(i);
       i++;
-      let delay = 15 + Math.random() * 40; // entre 15ms e 55ms para parecer humano
-      // pausa maior em vírgulas, pontos, quebras de linha
+      let delay = 15 + Math.random() * 40;
       if (text.charAt(i - 1) === ',' || text.charAt(i - 1) === '—') delay += 100;
       if (text.charAt(i - 1) === '.' || text.charAt(i - 1) === '\n') delay += 250;
       setTimeout(type, delay);
