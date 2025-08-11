@@ -2,14 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mía Michelita</title>
+  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="container" id="jarContainer" title="Clicá para abrir la rosa">
-    <div class="glass">
+  <div class="container" id="flowerContainer" title="Haz click para abrir">
+    <div class="glass" id="glass">
       <div class="shine"></div>
     </div>
     <div class="thorns">
@@ -19,7 +18,6 @@
       <div></div>
     </div>
     <div class="leaves">
-      <div></div>
       <div></div>
       <div></div>
       <div></div>
@@ -41,12 +39,12 @@
     </div>
   </div>
 
-  <div id="poemScreen" role="dialog" aria-modal="true" aria-labelledby="poemTitle" aria-describedby="poemText">
-    <h1 id="poemTitle">Imperio en tus ojos</h1>
-    <p id="poemText"></p>
-    <p id="happyText">!Feliz cumpleaños!</p>
+  <div id="poemScreen">
+    <h1 id="poemTitle"></h1>
+    <pre id="poemText"></pre>
+    <div id="happyText">!Feliz cumpleaños!</div>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
