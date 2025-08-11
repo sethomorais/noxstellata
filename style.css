@@ -223,6 +223,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 800px;
+  max-height: 60vh;  /* limita a altura para scroll no mobile */
   padding: 30px 40px;
   background: rgba(15, 15, 15, 0.85);
   border-radius: 12px;
@@ -236,7 +237,10 @@ body {
   font-size: 1.6rem;
   line-height: 2.4rem;
   text-align: center;
-  white-space: pre-wrap;
+  white-space: normal;
+  overflow-x: hidden;
+  overflow-y: auto;
+  word-wrap: break-word;
   z-index: 50;
 }
 
@@ -248,20 +252,27 @@ body {
 #poemText {
   margin: 0;
   font-weight: 400;
+  font-family: 'Georgia', serif;
+  white-space: normal;
+  text-align: center;
+}
+
+.poem-title {
+  font-family: 'Lobster', cursive;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #f594b8;
 }
 
 #happyText {
   margin-top: 20px;
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #f56c6c;
+  font-family: 'Lobster', cursive;
   opacity: 0;
   transition: opacity 1.2s ease;
   user-select: none;
   font-weight: 700;
-}
-
-#happyText.show {
-  opacity: 1;
 }
 
 /* Voo suave pétalas */
