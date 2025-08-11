@@ -4,13 +4,10 @@ const petals = flower.querySelector(".petals");
 const leaves = flower.querySelector(".leaves");
 const thorns = flower.querySelector(".thorns");
 const poemScreen = document.getElementById("poemScreen");
-const poemTitle = document.getElementById("poemTitle");
 const poemText = document.getElementById("poemText");
 const happyText = document.getElementById("happyText");
 
-const title = "Imperio en tus ojos";
-
-const poemBody = `
+const poem = `Imperio en tus ojos
 
 En tus ojos veo mundos que no existen para nadie más,
           constelaciones atrapadas en abismos que me devoran sin piedad.
@@ -49,66 +46,42 @@ flower.addEventListener("click", () => {
       const baseAngle = Math.random() * Math.PI * 2;
       const spread = Math.PI / 4; // espalhamento +- 45 graus do ângulo base
       const angle = baseAngle + (Math.random() - 0.5) * spread;
-
-      // Distância a voar
-      const distance = 300 + Math.random() * 150;
-
-      // Calcula os deslocamentos em X e Y
-      const x = Math.cos(angle) * distance;
-      const y = Math.sin(angle) * distance;
-
-      petal.style.transform = `translate(${x}px, ${y}px) rotate(${(Math.random() - 0.5) * 360}deg)`;
-      petal.style.opacity = "0";
+      const dist = 500 + Math.random() * 200;
+      const rotate = (Math.random() - 0.5) * 360;
+      petal.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${rotate}deg)`;
+      petal.style.opacity = '0';
     });
 
-    // Após a dispersão, esconde a flor e mostra o poema
+    // O jarro desaparece suavemente
+    flower.style.transition = "opacity 3s ease";
+    flower.style.opacity = '0';
+
+    // Mostra poema após 3s de voo
     setTimeout(() => {
-      flower.style.opacity = "0";
-      showPoem();
-    }, 4000);
-  }, 1600);
+      poemScreen.classList.add('visible');
+      typePoem(poem, poemText, () => {
+        happyText.classList.add('show'); // Aparece só depois do poema
+      });
+    }, 3000);
+  }, 1500);
 });
 
-// Função pra digitar texto letra a letra com ritmo humano fluido
-function typeText(text, element, delayMin = 15, delayMax = 60, callback) {
+// Digitação mais rápida com pausas humanas
+function typePoem(text, element, callback) {
   let i = 0;
-
   function type() {
     if (i < text.length) {
       element.textContent += text.charAt(i);
       i++;
-
-      // Pausas aleatórias pra parecer humano
-      let delay = delayMin + Math.random() * (delayMax - delayMin);
-      if (text.charAt(i - 1) === ',' || text.charAt(i - 1) === '.') {
-        delay += 120;
-      }
-      if (text.charAt(i - 1) === '—') {
-        delay += 200;
-      }
-
+      let baseDelay = 20; // mais rápido
+      let variance = 40; // menor variação para parecer natural
+      let delay = baseDelay + Math.random() * variance;
+      if (text.charAt(i - 1) === '\n') delay += 120; // pausa maior em nova linha
       setTimeout(type, delay);
-    } else if (callback) {
-      callback();
+    } else {
+      if (callback) callback();
     }
   }
-
+  element.textContent = '';
   type();
-}
-
-function showPoem() {
-  poemScreen.classList.add("visible");
-  poemTitle.textContent = "";
-  poemText.textContent = "";
-  happyText.classList.remove("show");
-
-  // Digitar título primeiro
-  typeText(title, poemTitle, 40, 70, () => {
-    poemTitle.textContent += "\n"; // pulinho pra separar visualmente
-
-    // Depois digitar o corpo do poema
-    typeText(poemBody, poemText, 10, 40, () => {
-      happyText.classList.add("show");
-    });
-  });
 }
