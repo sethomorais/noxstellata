@@ -10,27 +10,27 @@ const happyText = document.getElementById("happyText");
 // Poema com título e estrofes separadas em <p>
 const poemHTML = `
   <p class="poem-title">Imperio en tus ojos</p>
-  <p>En tus ojos veo mundos que no existen para nadie más,<br>
-     constelaciones atrapadas en abismos que me devoran sin piedad.<br>
-     Son portales… y cada vez que los miro,<br>
+  <p>En tus ojos veo mundos que no existen para nadie más,
+     constelaciones atrapadas en abismos que me devoran sin piedad.
+     Son portales… y cada vez que los miro,
      caigo más hondo, hasta olvidar quién soy.</p>
 
-  <p>Tu manera es una conspiración silenciosa contra el resto del mundo,<br>
-     una danza rara cuyo ritmo sólo yo conozco.<br>
-     Y por eso, cada día planeo tu conquista como una guerra<br>
+  <p>Tu manera es una conspiración silenciosa contra el resto del mundo,
+     una danza rara cuyo ritmo sólo yo conozco.
+     Y por eso, cada día planeo tu conquista como una guerra
      — no para encerrarte, sino para que nunca escapes de mí.</p>
 
-  <p>Vos sos mi imperio, levantado sobre huesos y promesas,<br>
-     mi cetro, mi corona, mi capital de carne y alma.<br>
-     Aunque me esconda en las sombras,<br>
+  <p>Vos sos mi imperio, levantado sobre huesos y promesas,
+     mi cetro, mi corona, mi capital de carne y alma.
+     Aunque me esconda en las sombras,
      mi juramento sangra: siempre estoy acá.</p>
 
   <p>Lo que siento por vos no se mide en palabras<br>
-     — es acero fundido en mi pecho,<br>
+     — es acero fundido en mi pecho,
      es veneno y cura en la misma dosis.</p>
 
-  <p>Y si el mundo se atreve a tocarte,<br>
-     que sepa: mi amor también es una hoja afilada.<br>
+  <p>Y si el mundo se atreve a tocarte,
+     que sepa: mi amor también es una hoja afilada.
      Y por vos, la usaré.</p>
 `;
 
